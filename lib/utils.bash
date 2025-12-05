@@ -227,7 +227,22 @@ if [ ! -f "$jar_path" ]; then
 	exit 1
 fi
 
-exec "$java_bin" -jar "$jar_path" "$@"
+java_opts=()
+
+if [ -n "${MINECRAFT_XMX:-}" ]; then
+	java_opts+=("-Xmx${MINECRAFT_XMX}")
+fi
+
+if [ -n "${MINECRAFT_XMS:-}" ]; then
+	java_opts+=("-Xms${MINECRAFT_XMS}")
+fi
+
+if [ -n "${MINECRAFT_OPTS:-}" ]; then
+	read -r -a extra_opts <<<"${MINECRAFT_OPTS}"
+	java_opts+=("${extra_opts[@]}")
+fi
+
+exec "$java_bin" "${java_opts[@]}" -jar "$jar_path" "$@"
 EOF
 
 	chmod +x "$launcher"

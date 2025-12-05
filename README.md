@@ -42,6 +42,13 @@ mise plugins install minecraft https://github.com/h-sumiya/mise-minecraft.git
 - Install with Java 17: `mise install java@17 minecraft@1.20.4` or `asdf install java 17 && asdf install minecraft 1.20.4`
 - Set defaults globally: `mise use -g java@17 minecraft@1.20.4` or `asdf global java 17 && asdf global minecraft 1.20.4`
 - Run the dedicated server jar: `minecraft --nogui` (accept `eula.txt` on first launch as usual)
+- Customize JVM flags via `MINECRAFT_XMX`, `MINECRAFT_XMS`, and `MINECRAFT_OPTS` (works with mise `[env]` or exported variables):
+  ```toml
+  [env]
+  MINECRAFT_XMX = "4G"
+  MINECRAFT_XMS = "1G"
+  MINECRAFT_OPTS = "-XX:+UseG1GC"
+  ```
 
 # Contributing
 
