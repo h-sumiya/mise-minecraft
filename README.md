@@ -2,7 +2,7 @@
 
 # asdf-minecraft [![Build](https://github.com/h-sumiya/asdf-minecraft/actions/workflows/build.yml/badge.svg)](https://github.com/h-sumiya/asdf-minecraft/actions/workflows/build.yml) [![Lint](https://github.com/h-sumiya/asdf-minecraft/actions/workflows/lint.yml/badge.svg)](https://github.com/h-sumiya/asdf-minecraft/actions/workflows/lint.yml)
 
-[minecraft](https://github.com/h-sumiya/mise-minecraft) plugin for the [asdf version manager](https://asdf-vm.com).
+[minecraft](https://github.com/h-sumiya/mise-minecraft) plugin for the [asdf](https://asdf-vm.com) and [mise](https://mise.jdx.dev) version managers.
 
 </div>
 
@@ -10,44 +10,38 @@
 
 - [Dependencies](#dependencies)
 - [Install](#install)
+- [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
 # Dependencies
 
-**TODO: adapt this section**
-
-- `bash`, `curl`, `tar`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
+- `bash`, `curl`, `sha1sum`/`shasum`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
+- `jq` **or** `python3` for parsing Mojang manifests.
+- Java 17+ available on `PATH` (`mise use -g java@17` works well).
 
 # Install
 
-Plugin:
+## asdf
 
 ```shell
 asdf plugin add minecraft
-# or
-asdf plugin add minecraft https://github.com/h-sumiya/asdf-minecraft.git
+asdf plugin add minecraft https://github.com/h-sumiya/mise-minecraft.git
 ```
 
-minecraft:
+## mise
 
 ```shell
-# Show all installable versions
-asdf list-all minecraft
-
-# Install specific version
-asdf install minecraft latest
-
-# Set a version globally (on your ~/.tool-versions file)
-asdf global minecraft latest
-
-# Now minecraft commands are available
-minecraft --help
+mise plugins install minecraft https://github.com/h-sumiya/mise-minecraft.git
 ```
 
-Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to
-install & manage versions.
+# Usage
+
+- List releases: `asdf list-all minecraft` or `mise ls-remote minecraft`  
+  Set `MINECRAFT_INCLUDE_SNAPSHOTS=1` to include snapshots/pre-releases.
+- Install with Java 17: `mise install java@17 minecraft@1.20.4` or `asdf install java 17 && asdf install minecraft 1.20.4`
+- Set defaults globally: `mise use -g java@17 minecraft@1.20.4` or `asdf global java 17 && asdf global minecraft 1.20.4`
+- Run the dedicated server jar: `minecraft --nogui` (accept `eula.txt` on first launch as usual)
 
 # Contributing
 
